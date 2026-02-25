@@ -31,7 +31,17 @@ def load_listings(f):
     full_path = os.path.join(base_path, f)
 
     # TODO: Read the CSV using csv.reader and convert it to a list a dictionaries
-    pass
+    with open(full_path) as inFile:
+        csvFile = csv.reader(inFile)
+        header = next(csvFile)
+        list_of_dict = []
+
+        for row in csvFile:
+            curr_dict = {}
+            for i, item in enumerate(header):
+                curr_dict[item] = row[i]
+            list_of_dict.append(curr_dict)
+    return list_of_dict
 
 ###############################################################################
 ##### TASK 2: CALCULATION FUNCTION (single calculation)
@@ -128,6 +138,6 @@ class TestAirbnbListings(unittest.TestCase):
 
 def main():
     unittest.main(verbosity=2)
-
+    
 if __name__ == '__main__':
     main()
